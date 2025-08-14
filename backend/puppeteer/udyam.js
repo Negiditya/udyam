@@ -5,7 +5,10 @@ const puppeteer = require('puppeteer')
 const aadharAuth = async (aadhar, name) => {
 
 
-    const browser = await puppeteer.launch({ headless: true })
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
 
     const page = await browser.newPage();
 
@@ -19,7 +22,7 @@ const aadharAuth = async (aadhar, name) => {
 
     await page.waitForFunction(() => {
         const errEl = document.querySelector('#ctl00_ContentPlaceHolder1_lblmsg');
-        const otpEl = document.querySelector('#ctl00_ContentPlaceHolder1_lblOtpRes1'); 
+        const otpEl = document.querySelector('#ctl00_ContentPlaceHolder1_lblOtpRes1');
         return (errEl && errEl.innerText.trim().length > 0) ||
             (otpEl && otpEl.innerText.trim().length > 0);
     }, { timeout: 10000 });
@@ -86,27 +89,27 @@ const panValidation = async (data, page, browser) => {
 
 
 
-await page.click('#ctl00_ContentPlaceHolder1_btnValidatePan');
+    await page.click('#ctl00_ContentPlaceHolder1_btnValidatePan');
 
-let errMsg = await page.$eval('#ctl00_ContentPlaceHolder1_lblPanError', el => el.innerText.trim());
-const success = await page.$eval('#ctl00_ContentPlaceHolder1_lblPanError', el => el.innerText.trim());
+    let errMsg = await page.$eval('#ctl00_ContentPlaceHolder1_lblPanError', el => el.innerText.trim());
+    const success = await page.$eval('#ctl00_ContentPlaceHolder1_lblPanError', el => el.innerText.trim());
 
-if (errMsg.length > 0) {
-    return { status: false, errMsg, page, browser }
-}
-else if (success.length > 0) {
-    await page.click('#ctl00_ContentPlaceHolder1_btnGetPanData');
-    let cbdtMsg = '';
-
-    cbdtMsg = await page.$eval('#ctl00_ContentPlaceHolder1_lblmsgpan', el => el.innerText.trim());
     if (errMsg.length > 0) {
-        return { status: false, errMsg: cbdtMsg, page, browser }
+        return { status: false, errMsg, page, browser }
     }
+    else if (success.length > 0) {
+        await page.click('#ctl00_ContentPlaceHolder1_btnGetPanData');
+        let cbdtMsg = '';
 
-    return { status: true, page, browser }
+        cbdtMsg = await page.$eval('#ctl00_ContentPlaceHolder1_lblmsgpan', el => el.innerText.trim());
+        if (errMsg.length > 0) {
+            return { status: false, errMsg: cbdtMsg, page, browser }
+        }
+
+        return { status: true, page, browser }
 
 
-}
+    }
 
 
 
