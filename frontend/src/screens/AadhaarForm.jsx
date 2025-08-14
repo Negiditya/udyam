@@ -33,7 +33,7 @@ export default function AadhaarForm() {
     console.log("API URL:",import.meta.env.VITE_API_URL);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/generate-otp`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/aadhaar/generate-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function AadhaarForm() {
     setMessage('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/verify-otp`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/aadhaar/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
