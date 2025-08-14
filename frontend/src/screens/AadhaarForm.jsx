@@ -32,7 +32,7 @@ export default function AadhaarForm() {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/aadhaar/generate-otp', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/generate-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function AadhaarForm() {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/aadhaar/verify-otp', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,9 +132,8 @@ export default function AadhaarForm() {
                   onChange={handleInputChange}
                   placeholder="Your Aadhaar No"
                   disabled={otpSent}
-                  className={`w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    otpSent ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
-                  }`}
+                  className={`w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${otpSent ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+                    }`}
                 />
               </div>
 
@@ -149,9 +148,8 @@ export default function AadhaarForm() {
                   onChange={handleInputChange}
                   placeholder="Name as per Aadhaar"
                   disabled={otpSent}
-                  className={`w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    otpSent ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
-                  }`}
+                  className={`w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${otpSent ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+                    }`}
                 />
               </div>
             </div>
@@ -185,9 +183,8 @@ export default function AadhaarForm() {
             </div>
 
             {message && (
-              <div className={`mb-6 p-4 rounded-md ${
-                isSuccess ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
-              }`}>
+              <div className={`mb-6 p-4 rounded-md ${isSuccess ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+                }`}>
                 <div className={`text-sm ${isSuccess ? 'text-green-800' : 'text-red-800'}`}>
                   {message}
                 </div>

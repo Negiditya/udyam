@@ -5,7 +5,10 @@ const formRoutes = require('./routes/formRoutes')
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'udyam-opal.vercel.app',
+
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
