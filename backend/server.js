@@ -1,14 +1,14 @@
 const express = require('express')
 const cors = require("cors");
 const formRoutes = require('./routes/formRoutes')
-
 require("dotenv").config();
 
 const app = express();
-app.use(cors({
-    origin: 'udyam-opal.vercel.app',
 
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://udyam-opal.vercel.app'],
 }));
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -17,4 +17,5 @@ app.get('/', (req, res) => {
 
 app.use('/api', formRoutes)
 
-app.listen(5000)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
