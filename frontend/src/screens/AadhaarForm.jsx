@@ -32,7 +32,7 @@ export default function AadhaarForm() {
     setMessage('');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/generate-otp`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/generate-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function AadhaarForm() {
     setMessage('');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/verify-otp`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
